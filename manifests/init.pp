@@ -1,4 +1,9 @@
-class sshd {
+class sshd 
+(
+   $allowgroups = '',
+   $enablefirewall = true,
+)
+{
    
    $sshd_config = "/etc/ssh/sshd_config"
 
@@ -14,19 +19,14 @@ class sshd {
 
    linux_base::sshd::config { "${sshd_config}":
       allowtcpforwarding => 'yes',
-      allowgroups   => 'sysadmin',
-   }
-
-   firewall { '100 allow SSH access':
-      port   => [22],
-      proto  => tcp,
-      action => accept,
+      allowgroups   => "${allowgroups}",
    }
 
 }
 
 define linux_base::sshd::config (
     $port = "22",
+    $enablefirewall = true,
     $loglevel = "info",
     $permitrootlogin = "no",
     $allowtcpforwarding = "no",
@@ -38,7 +38,21 @@ define linux_base::sshd::config (
         mode    => 600,
         content => template("sshd/sshd_config.erb"),
         notify  => Service['sshd']
-    }
+      }
+      
+      if $enablefirewall {
+         include 'sshd::firewall'
+      } 
+}
+
+class sshd::firewall {
+   
+   firewall { '100 allow SSH access':
+      port   => [22],
+      proto  => tcp,
+      action => accept,
+   }
+   
 }
 
 
