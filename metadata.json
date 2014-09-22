@@ -4,9 +4,9 @@
   "author": "networkbytes",
   "summary": "Configure the openssh server",
   "license": "Apache 2.0",
-  "source": "https://github.com/NetworkBytes/sshd",
-  "project_page": "https://github.com/NetworkBytes/sshd",
-  "issues_url": "https://github.com/NetworkBytes/sshd/issues",
+  "source": "https://github.com/NetworkBytes/puppet-sshd",
+  "project_page": "https://github.com/NetworkBytes/puppet-sshd",
+  "issues_url": "https://github.com/NetworkBytes/puppet-sshd/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",

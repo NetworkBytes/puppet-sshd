@@ -17,14 +17,14 @@ class sshd
        require  => Package['openssh-server'],
    }
 
-   linux_base::sshd::config { "${sshd_config}":
+   sshd::config { "${sshd_config}":
       allowtcpforwarding => 'yes',
       allowgroups   => "${allowgroups}",
    }
 
 }
 
-define linux_base::sshd::config (
+define sshd::config (
     $port = "22",
     $enablefirewall = true,
     $loglevel = "info",
